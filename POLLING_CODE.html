@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polling Webpage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .poll-options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .poll-options label {
+            margin-bottom: 10px;
+        }
+        .poll-results {
+            text-align: center;
+            margin-top: 20px;
+        }
+        img {
+                  width: 40px; 
+                  height: 40px;
+                  border-radius: 50%; 
+                  overflow: hidden; 
+                  margin: 0 auto; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>BIGG BOSS 7 2nd WEEK NOMINATION VOTE POLL</h1>
+        <div class="poll-options">
+            <label>
+            <input type="radio" name="poll-option" value="option1"> <img src="PALLAVI.JPG" alt="alternate-text">pallavi prasantha
+            </label>
+            <label>
+                <input type="radio" name="poll-option" value="option2"> <img src="PRINCE.JPG" alt="alternate-text">PRINCE
+            </label>
+            <label>
+                <input type="radio" name="poll-option" value="option3"> <img src="RITHIKA.JPG" alt="alternate-text"> RITHIKA
+            </label>
+            <label>
+                <input type="radio" name="poll-option" value="option4"> <img src="SHAKILA.JPG" alt="alternate-text">SHAKILA
+            </label>
+            <label>
+                <input type="radio" name="poll-option" value="option5"> <img src="SHIVAJI.JPG" alt="alternate-text"> SHIVAJI
+            </label>
+            <label>
+                <input type="radio" name="poll-option" value="option6"> <img src="TEJA.JPG" alt="alternate-text">TEJA
+            </label>
+            <label>
+                <input type="radio" name="poll-option" value="option7"> <img src="GOUTHAM.JPG" alt="alternate-text">GOUTHAM
+            </label>
+            <label>
+                <input type="radio" name="poll-option" value="option8"> <img src="AMARDHEEP.JPG" alt="alternate-text">AMARDHEEP
+            </label>
+            <label>
+                <input type="radio" name="poll-option" value="option9"> <img src="SHOBA.JPG" alt="alternate-text"> SHOBA
+            </label>
+        </div>
+        <button onclick="vote()">Vote</button>
+        <div class="poll-results" id="poll-results">
+            <p>Total Votes: <span id="total-votes">0</span></p>
+            <p>Option 1 Votes: <span id="option1-votes">0</span></p>
+            <p>Option 2 Votes: <span id="option2-votes">0</span></p>
+            <p>Option 3 Votes: <span id="option3-votes">0</span></p>
+            <p>Option 4 Votes: <span id="option4-votes">0</span></p>
+            <p>Option 5 Votes: <span id="option5-votes">0</span></p>
+            <p>Option 6 Votes: <span id="option6-votes">0</span></p>
+            <p>Option 7 Votes: <span id="option7-votes">0</span></p>
+            <p>Option 8 Votes: <span id="option8-votes">0</span></p>
+            <p>Option 9 Votes: <span id="option9-votes">0</span></p>
+        </div>
+    </div>
+
+    <script>
+        let hasVoted = false;
+        let totalVotes = parseInt(localStorage.getItem('totalVotes')) || 0;
+        let option1Votes = parseInt(localStorage.getItem('option1Votes')) || 0;
+        let option2Votes = parseInt(localStorage.getItem('option2Votes')) || 0;
+        let option3Votes = parseInt(localStorage.getItem('option3Votes')) || 0;
+        let option4Votes = parseInt(localStorage.getItem('option4Votes')) || 0;
+        let option5Votes = parseInt(localStorage.getItem('option5Votes')) || 0;
+        let option6Votes = parseInt(localStorage.getItem('option6Votes')) || 0;
+        let option7Votes = parseInt(localStorage.getItem('option7Votes')) || 0;
+        let option8Votes = parseInt(localStorage.getItem('option8Votes')) || 0;
+        let option9Votes = parseInt(localStorage.getItem('option9Votes')) || 0;
+
+        function vote() {
+            if (!hasVoted) {
+                const selectedOption = document.querySelector('input[name="poll-option"]:checked');
+                if (selectedOption) {
+                    const selectedValue = selectedOption.value;
+                    // Add this check for voting on the same day
+            if (lastVoteDate === currentDate) {
+                alert('You have already voted today. Please try again tomorrow.');
+                return;
+            }
+
+                    // Update vote counts
+                    if (selectedValue === 'option1') {
+                        option1Votes++;
+                    } else if (selectedValue === 'option2') {
+                        option2Votes++;
+                    } else if (selectedValue === 'option3') {
+                        option3Votes++;
+                    } else if (selectedValue === 'option4') {
+                        option4Votes++;
+                    } else if (selectedValue === 'option5') {
+                        option5Votes++;
+                    }else if (selectedValue === 'option6') {
+                        option6Votes++;
+                    } else if (selectedValue === 'option7') {
+                        option7Votes++;
+                    } else if (selectedValue === 'option8') {
+                        option8Votes++;
+                    } else if (selectedValue === 'option9') {
+                        option9Votes++;
+                    }
+
+                    totalVotes++;
+
+                    // Update the display
+                    document.getElementById('total-votes').textContent = totalVotes;
+                    document.getElementById('option1-votes').textContent = option1Votes;
+                    document.getElementById('option2-votes').textContent = option2Votes;
+                    document.getElementById('option3-votes').textContent = option3Votes;
+                    document.getElementById('option4-votes').textContent = option4Votes;
+                    document.getElementById('option5-votes').textContent = option5Votes;
+                    document.getElementById('option6-votes').textContent = option6Votes;
+                    document.getElementById('option7-votes').textContent = option7Votes;
+                    document.getElementById('option8-votes').textContent = option8Votes;
+                    document.getElementById('option9-votes').textContent = option9Votes;
+
+                    // Disable further voting
+                    document.querySelectorAll('input[name="poll-option"]').forEach(input => {
+                        input.disabled = true;
+                    });
+                    document.querySelector('button').disabled = true;
+
+                    // Store the vote data in localStorage
+                    localStorage.setItem('totalVotes', totalVotes);
+                    localStorage.setItem('option1Votes', option1Votes);
+                    localStorage.setItem('option2Votes', option2Votes);
+                    localStorage.setItem('option3Votes', option3Votes);
+                    localStorage.setItem('option4Votes', option4Votes);
+                    localStorage.setItem('option5Votes', option5Votes);
+                    localStorage.setItem('option6Votes', option6Votes);
+                    localStorage.setItem('option7Votes', option7Votes);
+                    localStorage.setItem('option8Votes', option8Votes);
+                    localStorage.setItem('option9Votes', option9Votes);
+
+                    hasVoted = true;
+                }
+            }
+        }
+
+        // Initialize the display with stored data
+        document.getElementById('total-votes').textContent = totalVotes;
+        document.getElementById('option1-votes').textContent = option1Votes;
+        document.getElementById('option2-votes').textContent = option2Votes;
+        document.getElementById('option3-votes').textContent = option3Votes;
+        document.getElementById('option4-votes').textContent = option4Votes;
+        document.getElementById('option5-votes').textContent = option5Votes;
+        document.getElementById('option6-votes').textContent = option6Votes;
+        document.getElementById('option7-votes').textContent = option7Votes;
+        document.getElementById('option8-votes').textContent = option8Votes;
+        document.getElementById('option9-votes').textContent = option9Votes;
+
+
+        // Disable voting if the user has already voted
+        if (hasVoted) {
+            document.querySelectorAll('input[name="poll-option"]').forEach(input => {
+                input.disabled = true;
+            });
+            document.querySelector('button').disabled = true;
+        }
+    </script>
+</body>
+</html>
